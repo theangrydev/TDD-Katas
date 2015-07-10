@@ -15,7 +15,7 @@ public class GameTest {
 	}
 
 	@Test
-	public void gutterGameShouldScoreZero() {
+	public void aGutterGameShouldScoreZero() {
 		roll(game, 0);
 
 		assertThat(game.score()).isEqualTo(0);
