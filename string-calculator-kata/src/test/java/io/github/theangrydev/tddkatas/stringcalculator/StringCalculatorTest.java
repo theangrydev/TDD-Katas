@@ -18,4 +18,9 @@ public class StringCalculatorTest {
 	public void theSumOfNoNumbersIsZero() {
 		assertThat(stringCalculator.add("")).isEqualTo(0);
 	}
+
+	@Test
+	public void theSumOfOneNumberIsItself() {
+		assertThat(stringCalculator.add("5")).isEqualTo(5);
+	}
 }
