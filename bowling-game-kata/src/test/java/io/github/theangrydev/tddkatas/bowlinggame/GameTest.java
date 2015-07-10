@@ -18,23 +18,40 @@ public class GameTest {
 	public void aGutterGameShouldScoreZero() {
 		givenEveryRollScores(0);
 
-		assertThat(theFinalScore()).isEqualTo(0);
+		assertThat(theScore()).isEqualTo(0);
 	}
 
 	@Test
 	public void aGameWithOnePinKnockedDownEachTimeShouldScore20() {
 		givenEveryRollScores(1);
 
-		assertThat(theFinalScore()).isEqualTo(20);
+		assertThat(theScore()).isEqualTo(20);
 	}
 
-	private int theFinalScore() {
+	@Test
+	public void aSpareGrantsABonusEqualToTheNumberOfPinsKnockedDownInTheNextRoll() {
+		rollASpare();
+		roll(5);
+
+		assertThat(theScore()).isEqualTo(10 + 5 + 5);
+	}
+
+	private void rollASpare() {
+		roll(1);
+		roll(9);
+	}
+
+	private int theScore() {
 		return game.score();
 	}
 
-	private void givenEveryRollScores(int pinsEachRoll) {
+	private void givenEveryRollScores(int pinsKnockedDownEachRoll) {
 		for (int i = 0; i < 20; i++) {
-			game.roll(pinsEachRoll);
+			roll(pinsKnockedDownEachRoll);
 		}
+	}
+
+	private void roll(int pinsKnockedDown) {
+		game.roll(pinsKnockedDown);
 	}
 }
