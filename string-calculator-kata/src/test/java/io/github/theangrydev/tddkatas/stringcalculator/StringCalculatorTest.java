@@ -39,4 +39,9 @@ public class StringCalculatorTest {
 	public void onlyOneSeperatorIsAllowedBetweenNumbers() {
 		assertThatThrownBy(() -> stringCalculator.add("1\n,2")).isInstanceOf(NumberFormatException.class);
 	}
+
+	@Test
+	public void differentDelimitersCanBeUsed() {
+		assertThat(stringCalculator.add(";\n1;2")).isEqualTo(3);
+	}
 }
