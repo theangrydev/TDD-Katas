@@ -33,7 +33,47 @@ public class GameTest {
 		rollASpare();
 		roll(5);
 
-		assertThat(theScore()).isEqualTo(10 + 5 + 5);
+		assertThat(theScore()).isEqualTo(10 + 5*2);
+	}
+
+	@Test
+	public void aSpareDoesNotGrantsABonusEqualToTheNumberOfPinsKnockedDownOnTheSecondRollAfterTheStrike() {
+		rollASpare();
+		roll(5);
+		roll(1);
+
+		assertThat(theScore()).isEqualTo(10 + 5*2 + 1);
+	}
+
+	@Test
+	public void aStrikeGrantsABonusEqualToTheNumberOfPinsKnockedDownInTheNextRoll() {
+		rollAStrike();
+		roll(4);
+
+		assertThat(theScore()).isEqualTo(10 + 4*2);
+	}
+
+	@Test
+	public void aStrikeGrantsABonusEqualToTheNumberOfPinsKnockedDownInTheNextTwoRolls() {
+		rollAStrike();
+		roll(4);
+		roll(3);
+
+		assertThat(theScore()).isEqualTo(10 + 4*2 + 3*2);
+	}
+
+	@Test
+	public void aStrikeDoesNotGrantsABonusEqualToTheNumberOfPinsKnockedDownOnTheThirdRollAfterTheStrike() {
+		rollAStrike();
+		roll(4);
+		roll(3);
+		roll(5);
+
+		assertThat(theScore()).isEqualTo(10 + 4*2 + 3*2 + 5);
+	}
+
+	private void rollAStrike() {
+		roll(10);
 	}
 
 	private void rollASpare() {
