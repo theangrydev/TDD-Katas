@@ -8,11 +8,14 @@ import java.util.stream.StreamSupport;
 public class StringCalculator {
 
 	public int add(String numbers) {
+		if (numbers.isEmpty()) {
+			return 0;
+		}
 		return stream(eachNumber(numbers)).mapToInt(Integer::parseInt).sum();
 	}
 
 	private Iterable<String> eachNumber(String numbers) {
-		return Splitter.on(',').omitEmptyStrings().split(numbers);
+		return Splitter.onPattern("[,\n]").split(numbers);
 	}
 
 	private static <T> Stream<T> stream(Iterable<T> iterable) {
