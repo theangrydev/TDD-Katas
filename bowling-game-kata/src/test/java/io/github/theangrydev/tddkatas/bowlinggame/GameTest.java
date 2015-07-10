@@ -16,19 +16,23 @@ public class GameTest {
 
 	@Test
 	public void aGutterGameShouldScoreZero() {
-		roll(game, 0);
+		givenEveryRollScores(0);
 
-		assertThat(game.score()).isEqualTo(0);
+		assertThat(theFinalScore()).isEqualTo(0);
 	}
 
 	@Test
 	public void aGameWithOnePinKnockedDownEachTimeShouldScore20() {
-		roll(game, 1);
+		givenEveryRollScores(1);
 
-		assertThat(game.score()).isEqualTo(20);
+		assertThat(theFinalScore()).isEqualTo(20);
 	}
 
-	private void roll(Game game, int pinsEachRoll) {
+	private int theFinalScore() {
+		return game.score();
+	}
+
+	private void givenEveryRollScores(int pinsEachRoll) {
 		for (int i = 0; i < 20; i++) {
 			game.roll(pinsEachRoll);
 		}
