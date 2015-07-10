@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>string-calculator-kata</module>
+		<module>bowling-game-kata</module>
 	</modules>
 
 	<properties>
