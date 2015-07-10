@@ -23,4 +23,9 @@ public class StringCalculatorTest {
 	public void theSumOfOneNumberIsItself() {
 		assertThat(stringCalculator.add("5")).isEqualTo(5);
 	}
+
+	@Test
+	public void theSumOfTwoNumberIsTheFirstPlusTheSecond() {
+		assertThat(stringCalculator.add("1,2")).isEqualTo(3);
+	}
 }

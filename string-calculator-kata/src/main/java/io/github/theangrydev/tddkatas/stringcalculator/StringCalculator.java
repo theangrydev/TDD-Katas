@@ -1,6 +1,6 @@
 package io.github.theangrydev.tddkatas.stringcalculator;
 
-import static java.lang.Integer.parseInt;
+import static java.util.Arrays.stream;
 
 public class StringCalculator {
 
@@ -8,6 +8,6 @@ public class StringCalculator {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
-		return parseInt(numbers);
+		return stream(numbers.split(",")).mapToInt(Integer::parseInt).sum();
 	}
 }
