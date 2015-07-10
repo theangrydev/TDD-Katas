@@ -1,7 +1,10 @@
 package io.github.theangrydev.tddkatas.stringcalculator;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
+import java.util.Iterator;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -25,7 +28,19 @@ public class StringCalculator {
 	}
 
 	private static int sum(Iterable<String> numbers) {
-		return stream(numbers).mapToInt(Integer::parseInt).sum();
+		String negativeNumbers = Joiner.on(',').join(negativeNumbers(numbers));
+		if (!negativeNumbers.isEmpty()) {
+			throw new IllegalArgumentException("Negatives are not allowed: " + negativeNumbers);
+		}
+		return numbers(numbers).sum();
+	}
+
+	private static Iterator<String> negativeNumbers(Iterable<String> numbers) {
+		return numbers(numbers).filter(number -> number < 0).mapToObj(String::valueOf).iterator();
+	}
+
+	private static IntStream numbers(Iterable<String> numbers) {
+		return stream(numbers).mapToInt(Integer::parseInt);
 	}
 
 	private static Iterable<String> numbersSplitByNewLineOrComma(String numbers) {

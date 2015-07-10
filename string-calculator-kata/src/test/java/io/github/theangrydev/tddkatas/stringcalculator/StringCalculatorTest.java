@@ -37,4 +37,14 @@ public class StringCalculatorTest {
 	public void differentDelimitersCanBeUsed() {
 		assertThat(add(";\n1;2")).isEqualTo(3);
 	}
+
+	@Test
+	public void negativesAreNotAllowed() {
+		assertThatThrownBy(() -> add("-1")).hasMessage("Negatives are not allowed: -1");
+	}
+
+	@Test
+	public void multipleNegativesAreNotAllowed() {
+		assertThatThrownBy(() -> add("1,-1,-2")).hasMessage("Negatives are not allowed: -1,-2");
+	}
 }
