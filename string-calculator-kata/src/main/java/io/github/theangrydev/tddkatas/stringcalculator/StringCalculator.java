@@ -16,15 +16,44 @@ public class StringCalculator {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
-		int endOfFirstLine = numbers.indexOf('\n');
-		if (endOfFirstLine > 0) {
-			String delimiter = numbers.substring(0, endOfFirstLine);
-			if (!isDigits(delimiter)) {
-				numbers = numbers.substring(endOfFirstLine + 1);
-				return sum(Splitter.on(delimiter).split(numbers));
-			}
+		if (hasCustomDelimiter(numbers)) {
+			return sumWithCustomDelimiter(numbers);
 		}
+		return sumWithDefaultDelimiter(numbers);
+	}
+
+	private static int sumWithDefaultDelimiter(String numbers) {
 		return sum(numbersSplitByNewLineOrComma(numbers));
+	}
+
+	private static int sumWithCustomDelimiter(String numbers) {
+		String delimiter = extractDelimiter(numbers);
+		numbers = extractNumbers(numbers);
+		return sum(Splitter.on(delimiter).split(numbers));
+	}
+
+	private static String extractNumbers(String numbers) {
+		return numbers.substring(endOfFirstLine(numbers) + 1);
+	}
+
+	private static boolean hasCustomDelimiter(String numbers) {
+		return mightHaveDelimiter(numbers) && possibleDelimiterIsNotDigits(numbers);
+	}
+
+	private static boolean possibleDelimiterIsNotDigits(String numbers) {
+		return !isDigits(extractDelimiter(numbers));
+	}
+
+	private static boolean mightHaveDelimiter(String numbers) {
+		return endOfFirstLine(numbers) > 0;
+	}
+
+	private static String extractDelimiter(String numbers) {
+		return numbers.substring(0, endOfFirstLine(numbers));
+	}
+
+	private static int endOfFirstLine(String numbers) {
+		return numbers.indexOf('\n');
 	}
 
 	private static int sum(Iterable<String> numbers) {
