@@ -2,7 +2,9 @@ package io.github.theangrydev.tddkatas.bowlinggame;
 
 public class Game {
 
-	public static final int NUMBER_OF_PINS = 10;
+	private static final int NUMBER_OF_PINS = 10;
+	private static final int NUMBER_OF_FRAMES = 10;
+
 	private int lastRoll;
 	private int currentRoll;
 	private int rollsThisFrame;
@@ -43,7 +45,7 @@ public class Game {
 	}
 
 	private boolean thisIsTheLastFrame() {
-		return frameNumber == 10;
+		return frameNumber == NUMBER_OF_FRAMES;
 	}
 
 	public int score() {
