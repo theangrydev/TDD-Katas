@@ -2,12 +2,13 @@ package io.github.theangrydev.tddkatas.bowlinggame;
 
 public class Game {
 
+	public static final int NUMBER_OF_PINS = 10;
 	private int lastRoll;
 	private int currentRoll;
 	private int rollsThisFrame;
 	private int frameNumber = 1;
-	private boolean[] strikes = new boolean[20];
-	private boolean[] spares = new boolean[20];
+	private boolean[] strikes = new boolean[NUMBER_OF_PINS * 2];
+	private boolean[] spares = new boolean[NUMBER_OF_PINS * 2];
 	private int score;
 
 	public void roll(int pins) {
@@ -54,11 +55,11 @@ public class Game {
 	}
 
 	private boolean thisRollIsAStrike(int pins) {
-		return pins == 10;
+		return pins == NUMBER_OF_PINS;
 	}
 
 	private boolean theNumberOfPinsKnockedDownInThisRollAndTheLastIsTen(int pins) {
-		return pins + lastRoll == 10;
+		return pins + lastRoll == NUMBER_OF_PINS;
 	}
 
 	private void rememberThatThisRollIsNotAStrikeOrASpare() {
