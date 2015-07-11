@@ -16,14 +16,14 @@ public class GameTest {
 
 	@Test
 	public void aGutterGameShouldScoreZero() {
-		givenEveryRollScores(0);
+		givenThisManyRolls(20, eachScore(0));
 
 		assertThat(theScore()).isEqualTo(0);
 	}
 
 	@Test
 	public void aGameWithOnePinKnockedDownEachTimeShouldScore20() {
-		givenEveryRollScores(1);
+		givenThisManyRolls(20, 1);
 
 		assertThat(theScore()).isEqualTo(20);
 	}
@@ -72,6 +72,17 @@ public class GameTest {
 		assertThat(theScore()).isEqualTo(10 + 4*2 + 3*2 + 5);
 	}
 
+	@Test
+	public void theMaximumScoreAfter12RollsIs300() {
+		givenThisManyRolls(12, eachScore(10));
+
+		assertThat(theScore()).isEqualTo(300);
+	}
+
+	private int eachScore(int numberOfPinsKnockedDown) {
+		return numberOfPinsKnockedDown;
+	}
+
 	private void rollAStrike() {
 		roll(10);
 	}
@@ -85,8 +96,8 @@ public class GameTest {
 		return game.score();
 	}
 
-	private void givenEveryRollScores(int pinsKnockedDownEachRoll) {
-		for (int i = 0; i < 20; i++) {
+	private void givenThisManyRolls(int thisManyRolls, int pinsKnockedDownEachRoll) {
+		for (int i = 0; i < thisManyRolls; i++) {
 			roll(pinsKnockedDownEachRoll);
 		}
 	}
