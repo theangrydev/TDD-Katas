@@ -30,11 +30,15 @@ public class Game {
 	}
 
 	private boolean theFirstBonusRollHasBeenMade() {
-		return thisIsTheLastFrame() && rollsThisFrame >= 1;
+		return thisIsTheLastFrame() && rollsThisFrameIsAtLeast(1);
 	}
 
 	private boolean theSecondBonusRollHasBeenMade() {
-		return thisIsTheLastFrame() && rollsThisFrame >= 2;
+		return thisIsTheLastFrame() && rollsThisFrameIsAtLeast(2);
+	}
+
+	private boolean rollsThisFrameIsAtLeast(int numberOfRolls) {
+		return rollsThisFrame >= numberOfRolls;
 	}
 
 	private boolean thisIsTheLastFrame() {
@@ -46,7 +50,7 @@ public class Game {
 	}
 
 	private boolean thisRollIsASpare(int pins) {
-		return theNumberOfPinsKnockedDownInThisRollAndTheLastIsTen(pins) && !theLastRollWasAStrike() && !theLastRollWasASpare();
+		return theNumberOfPinsKnockedDownInThisRollAndTheLastIsTen(pins) && !theLastRollWasAStrike();
 	}
 
 	private boolean thisRollIsAStrike(int pins) {
@@ -58,10 +62,8 @@ public class Game {
 	}
 
 	private void rememberThatThisRollIsNotAStrikeOrASpare() {
-		if (haveRolledThisFrame() && !thisIsTheLastFrame()) {
-			moveToTheNextFrame();
-		} else {
-			rollsThisFrame++;
+		if (haveRolledThisFrame()) {
+			rememberThatTwoRollsHaveBeenMadeInAFrame();
 		}
 	}
 
@@ -75,21 +77,21 @@ public class Game {
 	}
 
 	private void rememberThatThisRollIsASpare() {
-		if (!thisIsTheLastFrame()) {
-			moveToTheNextFrame();
-		} else {
-			rollsThisFrame++;
-		}
+		rememberThatTwoRollsHaveBeenMadeInAFrame();
 		spares[currentRoll] = true;
 	}
 
 	private void rememberThatThisRollIsAStrike() {
+		rememberThatTwoRollsHaveBeenMadeInAFrame();
+		strikes[currentRoll] = true;
+	}
+
+	private void rememberThatTwoRollsHaveBeenMadeInAFrame() {
 		if (!thisIsTheLastFrame()) {
 			moveToTheNextFrame();
 		} else {
 			rollsThisFrame++;
 		}
-		strikes[currentRoll] = true;
 	}
 
 	private boolean theRollBeforeLastWasAStrike() {
