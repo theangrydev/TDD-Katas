@@ -14,6 +14,11 @@ public class Game {
 	private int score;
 
 	public void roll(int pins) {
+		updateScore(pins);
+		rememberThisRoll(pins);
+	}
+
+	private void updateScore(int pins) {
 		score += pins;
 		if (!theFirstBonusRollHasBeenMade() && (theLastRollWasASpare() || theLastRollWasAStrike())) {
 			score += pins;
@@ -21,6 +26,9 @@ public class Game {
 		if (!theSecondBonusRollHasBeenMade() && theRollBeforeLastWasAStrike()) {
 			score += pins;
 		}
+	}
+
+	private void rememberThisRoll(int pins) {
 		if (thisRollIsAStrike(pins)) {
 			rememberThatThisRollIsAStrike();
 		} else if (thisRollIsASpare(pins)) {
@@ -48,7 +56,7 @@ public class Game {
 		return frameNumber == NUMBER_OF_FRAMES;
 	}
 
-	public int score() {
+	public int updateScore() {
 		return score;
 	}
 

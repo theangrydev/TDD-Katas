@@ -93,7 +93,7 @@ public class GameTest {
 	}
 
 	private int theScore() {
-		return game.score();
+		return game.updateScore();
 	}
 
 	private void givenThisManyRolls(int thisManyRolls, int pinsKnockedDownEachRoll) {
